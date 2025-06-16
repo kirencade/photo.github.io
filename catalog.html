@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог | Фотоархив 2025</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-camera logo-icon"></i>
+        <span>Фотоархив</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html" class="active">Каталог</a>
+        <a href="upload.html">Добавить фото</a>
+        <a href="about.html">О проекте</a>
+      </nav>
+      
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Вход</span>
+        </a>
+        <a href="register.html" class="btn btn-primary">
+          <i class="fas fa-user-plus"></i>
+          <span>Регистрация</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <main class="main-container">
+    <section class="page-header">
+      <h1 class="page-title">Каталог фотографий</h1>
+      <p class="page-subtitle">Просмотр и управление вашей коллекцией</p>
+    </section>
+    
+    <div class="filter-bar" style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+      <select class="form-control" style="flex: 1; min-width: 200px;">
+        <option>Все категории</option>
+        <option>Природа</option>
+        <option>Город</option>
+        <option>Люди</option>
+        <option>Архитектура</option>
+      </select>
+      
+      <select class="form-control" style="flex: 1; min-width: 200px;">
+        <option>Сначала новые</option>
+        <option>Сначала старые</option>
+        <option>По названию (А-Я)</option>
+        <option>По названию (Я-А)</option>
+      </select>
+      
+      <input type="text" class="form-control" placeholder="Поиск..." style="flex: 2;">
+      
+      <button class="btn btn-primary">
+        <i class="fas fa-filter"></i>
+        <span>Применить</span>
+      </button>
+    </div>
+    
+    <div class="photo-grid">
+      <!-- Фото будут загружаться динамически -->
+      <div class="photo-card">
+          <img src="uploads/my_photo1.jpg" alt="Мое фото">
+        <div class="photo-content">
+          <h3 class="photo-title">Лесное озеро</h3>
+          <div class="photo-meta">
+            <span><i class="far fa-calendar-alt"></i> 20.06.2025</span>
+            <span><i class="far fa-user"></i> Сергей Козлов</span>
+          </div>
+          <span class="category-tag"><i class="fas fa-leaf"></i> Природа</span>
+        </div>
+      </div>
+      
+      <!-- Еще 7-8 аналогичных карточек -->
+    </div>
+    
+    <div style="text-align: center; margin-top: 3rem;">
+      <button class="btn btn-outline" style="padding: 0.8rem 2rem;">
+        <i class="fas fa-plus"></i>
+        <span>Загрузить еще</span>
+      </button>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="#"><i class="fab fa-vk"></i></a>
+      <a href="#"><i class="fab fa-telegram"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
+  </footer>
+</body>
+</html>

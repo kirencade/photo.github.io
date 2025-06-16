@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация | Фотоархив 2025</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .password-strength {
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: var(--transition);
+    }
+    
+    .requirements {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+    }
+    
+    .requirement {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.3rem 0;
+    }
+    
+    .requirement i {
+      font-size: 0.6rem;
+    }
+    
+    .valid {
+      color: var(--secondary);
+    }
+    
+    .invalid {
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-camera logo-icon"></i>
+        <span>Фотоархив</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="upload.html">Добавить фото</a>
+        <a href="about.html">О проекте</a>
+      </nav>
+      
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Вход</span>
+        </a>
+        <a href="register.html" class="btn btn-primary active">
+          <i class="fas fa-user-plus"></i>
+          <span>Регистрация</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <main class="main-container">
+    <div class="form-container">
+      <section class="page-header">
+        <h1 class="page-title">Создать аккаунт</h1>
+        <p class="page-subtitle">Присоединяйтесь к сообществу Фотоархив</p>
+      </section>
+      
+      <form id="registerForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName" class="form-label">Имя</label>
+            <input type="text" id="firstName" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="lastName" class="form-label">Фамилия</label>
+            <input type="text" id="lastName" class="form-control" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="regEmail" class="form-label">Email</label>
+          <input type="email" id="regEmail" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="regPassword" class="form-label">Пароль</label>
+          <input type="password" id="regPassword" class="form-control" required>
+          <div class="password-strength">
+            <div class="strength-bar" id="strengthBar"></div>
+          </div>
+          <div class="requirements">
+            <div class="requirement" id="lengthReq">
+              <i class="fas fa-circle"></i>
+              <span>Не менее 8 символов</span>
+            </div>
+            <div class="requirement" id="numberReq">
+              <i class="fas fa-circle"></i>
+              <span>Содержит цифры</span>
+            </div>
+            <div class="requirement" id="specialReq">
+              <i class="fas fa-circle"></i>
+              <span>Специальный символ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Подтвердите пароль</label>
+          <input type="password" id="confirmPassword" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <div class="remember-me">
+            <input type="checkbox" id="agreeTerms" required>
+            <label for="agreeTerms">Я согласен с <a href="#" style="color: var(--primary);">условиями использования</a> и <a href="#" style="color: var(--primary);">политикой конфиденциальности</a></label>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
+          <i class="fas fa-user-plus"></i>
+          <span>Зарегистрироваться</span>
+        </button>
+        
+        <div class="text-center" style="margin-top: 1.5rem;">
+          <p>Уже есть аккаунт? <a href="login.html" style="color: var(--primary);">Войти</a></p>
+        </div>
+      </form>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="#"><i class="fab fa-vk"></i></a>
+      <a href="#"><i class="fab fa-telegram"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
+  </footer>
+
+  <script>
+    // Проверка сложности пароля
+    const passwordInput = document.getElementById('regPassword');
+    const strengthBar = document.getElementById('strengthBar');
+    const requirements = {
+      length: document.getElementById('lengthReq'),
+      number: document.getElementById('numberReq'),
+      special: document.getElementById('specialReq')
+    };
+    
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      let strength = 0;
+      
+      // Проверка требований
+      const hasLength = password.length >= 8;
+      const hasNumber = /\d/.test(password);
+      const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+      
+      // Обновление индикаторов
+      updateRequirement(requirements.length, hasLength);
+      updateRequirement(requirements.number, hasNumber);
+      updateRequirement(requirements.special, hasSpecial);
+      
+      // Расчет силы
+      if (hasLength) strength += 1;
+      if (hasNumber) strength += 1;
+      if (hasSpecial) strength += 1;
+      
+      // Обновление индикатора
+      const width = (strength / 3) * 100;
+      let color;
+      
+      if (strength === 0) {
+        color = '#f44336'; // Красный
+      } else if (strength === 1) {
+        color = '#FF9800'; // Оранжевый
+      } else if (strength === 2) {
+        color = '#FFC107'; // Желтый
+      } else {
+        color = '#4CAF50'; // Зеленый
+      }
+      
+      strengthBar.style.width = `${width}%`;
+      strengthBar.style.backgroundColor = color;
+    });
+    
+    function updateRequirement(element, isValid) {
+      const icon = element.querySelector('i');
+      if (isValid) {
+        icon.classList.add('valid');
+        icon.classList.remove('invalid');
+      } else {
+        icon.classList.add('invalid');
+        icon.classList.remove('valid');
+      }
+    }
+    
+    // Проверка формы
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        alert('Пароли не совпадают!');
+        return;
+      }
+      
+      if (!document.getElementById('agreeTerms').checked) {
+        alert('Необходимо принять условия использования');
+        return;
+      }
+      
+      // Здесь будет отправка данных на сервер
+      alert('Регистрация успешна! Добро пожаловать в Фотоархив.');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

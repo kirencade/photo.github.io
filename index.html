@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фотоархив 2025 | Главная</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-camera logo-icon"></i>
+        <span>Фотоархив</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html" class="active">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="upload.html">Добавить фото</a>
+        <a href="about.html">О проекте</a>
+      </nav>
+      
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Вход</span>
+        </a>
+        <a href="register.html" class="btn btn-primary">
+          <i class="fas fa-user-plus"></i>
+          <span>Регистрация</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <main class="main-container">
+    <section class="page-header">
+      <h1 class="page-title">Ваш цифровой фотоархив</h1>
+      <p class="page-subtitle">Современное решение для хранения, каталогизации и поиска фотографий в 2025 году</p>
+    </section>
+    
+    <div class="search-container" style="max-width: 800px; margin: 0 auto 3rem;">
+      <div style="display: flex; gap: 1rem;">
+        <input type="text" class="form-control" placeholder="Поиск по тегам, названиям..." style="flex: 1;">
+        <button class="btn btn-primary">
+          <i class="fas fa-search"></i>
+          <span>Найти</span>
+        </button>
+      </div>
+    </div>
+    
+    <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.8rem;">Последние добавленные</h2>
+    
+    <div class="photo-grid">
+      <div class="photo-card">
+            <img src="uploads/my_photo1.jpg" alt="Мое фото">
+        <div class="photo-content">
+          <h3 class="photo-title">Горный пейзаж</h3>
+          <div class="photo-meta">
+            <span><i class="far fa-calendar-alt"></i> 15.06.2025</span>
+            <span><i class="far fa-user"></i> Иван Иванов</span>
+          </div>
+          <span class="category-tag"><i class="fas fa-mountain"></i> Природа</span>
+        </div>
+      </div>
+      
+      <div class="photo-card">
+         <img src="uploads/2.jpg" alt="Мое фото">
+        <div class="photo-content">
+          <h3 class="photo-title">Ночной город</h3>
+          <div class="photo-meta">
+            <span><i class="far fa-calendar-alt"></i> 10.06.2025</span>
+            <span><i class="far fa-user"></i> Петр Петров</span>
+          </div>
+          <span class="category-tag"><i class="fas fa-city"></i> Город</span>
+        </div>
+      </div>
+      
+      <div class="photo-card">
+          <img src="uploads/3.jpg" alt="Мое фото">
+        <div class="photo-content">
+          <h3 class="photo-title">Портрет</h3>
+          <div class="photo-meta">
+            <span><i class="far fa-calendar-alt"></i> 05.06.2025</span>
+            <span><i class="far fa-user"></i> Анна Смирнова</span>
+          </div>
+          <span class="category-tag"><i class="fas fa-user"></i> Люди</span>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="#"><i class="fab fa-vk"></i></a>
+      <a href="#"><i class="fab fa-telegram"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
+  </footer>
+</body>
+</html>

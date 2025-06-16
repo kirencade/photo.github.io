@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О проекте | Фотоархив 2025</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .about-content {
+      background: white;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+    }
+    
+    .about-section {
+      margin-bottom: 3rem;
+    }
+    
+    .about-section h2 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .about-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .feature-card {
+      background: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-shadow);
+    }
+    
+    .feature-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .team-card {
+      text-align: center;
+    }
+    
+    .team-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .tech-item {
+      background: rgba(94, 53, 177, 0.1);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-camera logo-icon"></i>
+        <span>Фотоархив</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="upload.html">Добавить фото</a>
+        <a href="about.html" class="active">О проекте</a>
+      </nav>
+      
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Вход</span>
+        </a>
+        <a href="register.html" class="btn btn-primary">
+          <i class="fas fa-user-plus"></i>
+          <span>Регистрация</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <main class="main-container">
+    <div class="about-content">
+      <section class="about-section">
+        <h1 class="page-title">О проекте Фотоархив</h1>
+        <p>Фотоархив — это современная платформа для хранения, организации и обмена фотографиями, разработанная в 2025 году. Наш сервис сочетает в себе простоту использования с мощными функциями каталогизации.</p>
+      </section>
+      
+      <section class="about-section">
+        <h2>Наши возможности</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <h3>Быстрая загрузка</h3>
+            <p>Загружайте сотни фотографий одновременно с минимальным сжатием</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-tags"></i>
+            </div>
+            <h3>Умные теги</h3>
+            <p>Автоматическая классификация и распознавание объектов на фото</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-search"></i>
+            </div>
+            <h3>Мгновенный поиск</h3>
+            <p>Находите нужные фото по описанию, месту или объектам на снимке</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Безопасность</h3>
+            <p>Шифрование данных и двухфакторная аутентификация</p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="about-section">
+        <h2>Технологии</h2>
+        <p>Мы используем самые современные технологии 2025 года:</p>
+        
+        <div class="tech-stack">
+          <span class="tech-item">WebAssembly</span>
+          <span class="tech-item">AI Photo Analysis</span>
+          <span class="tech-item">Blockchain Storage</span>
+          <span class="tech-item">WebGL 3.0</span>
+          <span class="tech-item">Neural Networks</span>
+        </div>
+      </section>
+      
+      <section class="about-section">
+        <h2>Наша команда</h2>
+        <div class="team-grid">
+          <div class="team-card">
+            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Анна Смирнова" class="team-avatar">
+            <h3>Анна Смирнова</h3>
+            <p>Главный разработчик</p>
+          </div>
+          
+          <div class="team-card">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Иван Петров" class="team-avatar">
+            <h3>Иван Петров</h3>
+            <p>AI-инженер</p>
+          </div>
+          
+          <div class="team-card">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Елена Ковалева" class="team-avatar">
+            <h3>Елена Ковалева</h3>
+            <p>Дизайнер UX/UI</p>
+          </div>
+          
+          <div class="team-card">
+            <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Дмитрий Соколов" class="team-avatar">
+            <h3>Дмитрий Соколов</h3>
+            <p>Менеджер проекта</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="#"><i class="fab fa-vk"></i></a>
+      <a href="#"><i class="fab fa-telegram"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
+  </footer>
+</body>
+</html>
