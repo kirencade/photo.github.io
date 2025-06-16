@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход | Фотоархив 2025</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .auth-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .auth-options {
+      display: flex;
+      margin: 1.5rem 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .auth-option {
+      padding: 1rem;
+      text-align: center;
+      flex: 1;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: var(--transition);
+    }
+    
+    .auth-option.active {
+      border-bottom-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .social-auth {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .social-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      transition: var(--transition);
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+    }
+    
+    .btn-vk {
+      background: #4a76a8;
+    }
+    
+    .btn-google {
+      background: #db4437;
+    }
+    
+    .btn-apple {
+      background: #000;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      color: var(--gray);
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
+    }
+    
+    .divider-text {
+      padding: 0 1rem;
+    }
+    
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0;
+    }
+    
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .forgot-password {
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-camera logo-icon"></i>
+        <span>Фотоархив</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="upload.html">Добавить фото</a>
+        <a href="about.html">О проекте</a>
+      </nav>
+      
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline active">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Вход</span>
+        </a>
+        <a href="register.html" class="btn btn-primary">
+          <i class="fas fa-user-plus"></i>
+          <span>Регистрация</span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <main class="main-container">
+    <div class="auth-container">
+      <section class="page-header">
+        <h1 class="page-title">Вход в Фотоархив</h1>
+        <p class="page-subtitle">Войдите, чтобы получить доступ ко всем возможностям</p>
+      </section>
+      
+      <div class="form-container">
+        <div class="auth-options">
+          <div class="auth-option active">По email</div>
+          <div class="auth-option">По номеру телефона</div>
+        </div>
+        
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail" class="form-label">Email</label>
+            <input type="email" id="loginEmail" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="loginPassword" class="form-label">Пароль</label>
+            <input type="password" id="loginPassword" class="form-control" required>
+          </div>
+          
+          <div class="remember-forgot">
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMe">
+              <label for="rememberMe">Запомнить меня</label>
+            </div>
+            <a href="#" class="forgot-password">Забыли пароль?</a>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Войти</span>
+          </button>
+        </form>
+        
+        <div class="divider">
+          <span class="divider-text">или</span>
+        </div>
+        
+        <div class="social-auth">
+          <a href="#" class="social-btn btn-vk">
+            <i class="fab fa-vk"></i>
+          </a>
+          <a href="#" class="social-btn btn-google">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#" class="social-btn btn-apple">
+            <i class="fab fa-apple"></i>
+          </a>
+        </div>
+        
+        <div class="text-center" style="margin-top: 1.5rem;">
+          <p>Еще нет аккаунта? <a href="register.html" style="color: var(--primary);">Зарегистрируйтесь</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="#"><i class="fab fa-vk"></i></a>
+      <a href="#"><i class="fab fa-telegram"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+    </div>
+    <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
+  </footer>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Вход выполнен! Добро пожаловать в Фотоархив.');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
