@@ -1,14 +1,4 @@
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
-    
-    if (!currentUser) {
-      alert('Для добавления фото необходимо войти в систему');
-      window.location.href = 'login.html';
-    }
-  });
-</script>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -100,56 +90,6 @@
   </style>
 </head>
 <body>
- <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
-    
-    if (!currentUser) {
-      alert('Для добавления фото необходимо войти в систему');
-      window.location.href = 'login.html';
-    } else {
-      const authButtons = document.querySelector('.auth-buttons');
-      authButtons.innerHTML = `
-        <button id="logoutBtn" class="btn btn-outline">
-          <i class="fas fa-sign-out-alt"></i>
-          <span>Выйти</span>
-        </button>
-      `;
-      
-      document.getElementById('logoutBtn').addEventListener('click', function() {
-        localStorage.removeItem('currentUser');
-        sessionStorage.removeItem('currentUser');
-        window.location.href = 'index.html';
-      });
-    }
-  });
-</script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
-      
-      if (!currentUser) {
-        alert('Для добавления фото необходимо войти в систему');
-        window.location.href = 'login.html';
-      } else {
-        // Обновляем кнопки авторизации
-        const authButtons = document.querySelector('.auth-buttons');
-        authButtons.innerHTML = `
-          <button id="logoutBtn" class="btn btn-outline">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Выйти</span>
-          </button>
-        `;
-        
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-          localStorage.removeItem('currentUser');
-          sessionStorage.removeItem('currentUser');
-          window.location.href = 'index.html';
-        });
-      }
-    });
-  </script>
-
   <!-- Остальная часть вашего HTML -->
   <header>
     <div class="nav-container">
