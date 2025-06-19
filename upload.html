@@ -243,7 +243,31 @@
     </div>
     <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
   </footer>
-  <script>
+ <script>
+  // Проверка авторизации и обновление интерфейса
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    
+    if (!currentUser) {
+      alert('Для добавления фото необходимо войти в систему');
+      window.location.href = 'login.html';
+    } else {
+      const authButtons = document.querySelector('.auth-buttons');
+      authButtons.innerHTML = `
+        <button id="logoutBtn" class="btn btn-outline">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Выйти</span>
+        </button>
+      `;
+      
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+      });
+    }
+  });
+
   // Превью загружаемого изображения
   const uploadPreview = document.getElementById('uploadPreview');
   const fileInput = document.getElementById('fileInput');
@@ -331,11 +355,12 @@
       return;
     }
     
+    // Читаем файл как Data URL
     const reader = new FileReader();
     reader.onload = function(event) {
       const photoData = {
-        id: Date.now(),
-        image: event.target.result,
+        id: Date.now().toString(),
+        image: event.target.result, // Сохраняем изображение как Data URL
         title: document.getElementById('photoTitle').value,
         category: document.getElementById('photoCategory').value,
         description: document.getElementById('photoDescription').value,
@@ -346,7 +371,10 @@
         uploadedAt: new Date().toISOString()
       };
       
-      const photos = JSON.parse(localStorage.getItem('photos')) || [];
+      // Получаем существующие фотографии или создаем новый массив
+      let photos = JSON.parse(localStorage.getItem('photos')) || [];
+      
+      // Добавляем новую фотографию
       photos.push(photoData);
       localStorage.setItem('photos', JSON.stringify(photos));
       

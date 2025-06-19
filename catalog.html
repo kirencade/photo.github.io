@@ -105,7 +105,7 @@
       
       <!-- Еще 7-8 аналогичных карточек -->
     </div>
-    
+    <div class="gallery-container"></div>
    
   </main>
   
@@ -218,6 +218,80 @@
       if (visibleCount >= photos.length) {
         loadMoreBtn.style.display = 'none';
       }
+    });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Проверка авторизации (как в upload.html)
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    if (currentUser) {
+      const authButtons = document.querySelector('.auth-buttons');
+      authButtons.innerHTML = `
+        <button id="logoutBtn" class="btn btn-outline">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Выйти</span>
+        </button>
+      `;
+      
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+      });
+    }
+
+    // Отображение фотографий
+    const photos = JSON.parse(localStorage.getItem('photos')) || [];
+    const gallery = document.querySelector('.gallery-container'); // Убедитесь, что у вас есть этот элемент
+    
+    if (!gallery) return;
+    
+    if (photos.length === 0) {
+      gallery.innerHTML = '<p class="empty-message">В каталоге пока нет фотографий</p>';
+      return;
+    }
+    
+    // Функция для получения названия категории
+    function getCategoryName(category) {
+      const categories = {
+        nature: 'Природа',
+        city: 'Город',
+        people: 'Люди',
+        architecture: 'Архитектура'
+      };
+      return categories[category] || category;
+    }
+    
+    // Функция для форматирования даты
+    function formatDate(dateString) {
+      if (!dateString) return 'Дата не указана';
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString('ru-RU', options);
+    }
+    
+    // Отображаем все фотографии
+    photos.forEach(photo => {
+      const photoElement = document.createElement('div');
+      photoElement.className = 'photo-card';
+      photoElement.innerHTML = `
+        <img src="${photo.image}" alt="${photo.title}" class="photo-image">
+        <div class="photo-info">
+          <h3>${photo.title}</h3>
+          <p class="photo-category">${getCategoryName(photo.category)}</p>
+          <p class="photo-description">${photo.description || 'Нет описания'}</p>
+          <div class="photo-tags">
+            ${photo.tags && photo.tags.length > 0 ? 
+              photo.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : 
+              '<span>Нет тегов</span>'}
+          </div>
+          <p class="photo-meta">
+            <span class="photo-date">${formatDate(photo.date)}</span>
+            <span class="photo-author">Автор: ${photo.author}</span>
+          </p>
+        </div>
+      `;
+      gallery.appendChild(photoElement);
     });
   });
 </script>
