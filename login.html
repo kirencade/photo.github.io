@@ -213,3 +213,49 @@
   </script>
 </body>
 </html>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      
+      // Получаем зарегистрированных пользователей из localStorage
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      
+      // Ищем пользователя с таким email
+      const user = users.find(user => user.email === email);
+      
+      if (!user) {
+        alert('Пользователь с таким email не найден');
+        return;
+      }
+      
+      // В реальном приложении здесь должно быть сравнение хэшей паролей
+      // Но для учебного проекта просто проверяем, что пароль не пустой
+      if (!password) {
+        alert('Неверный пароль');
+        return;
+      }
+      
+      // Сохраняем данные входа, если выбрано "Запомнить меня"
+      if (rememberMe) {
+        localStorage.setItem('currentUser', JSON.stringify({
+          email: user.email,
+          name: user.firstName + ' ' + user.lastName
+        }));
+      } else {
+        sessionStorage.setItem('currentUser', JSON.stringify({
+          email: user.email,
+          name: user.firstName + ' ' + user.lastName
+        }));
+      }
+      
+      alert('Вход выполнен! Добро пожаловать, ' + user.firstName + '!');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

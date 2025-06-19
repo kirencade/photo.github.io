@@ -8,6 +8,30 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+  <body>
+  <!-- Этот скрипт должен быть ПЕРВЫМ внутри body -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+      
+      if (currentUser) {
+        const authButtons = document.querySelector('.auth-buttons');
+        authButtons.innerHTML = `
+          <button id="logoutBtn" class="btn btn-outline">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Выйти</span>
+          </button>
+        `;
+        
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+          localStorage.removeItem('currentUser');
+          sessionStorage.removeItem('currentUser');
+          window.location.reload();
+        });
+      }
+    });
+  </script>
+
   <header>
     <div class="nav-container">
       <a href="index.html" class="logo">
@@ -88,6 +112,9 @@
         <span>Загрузить еще</span>
       </button>
     </div>
+    <div class="load-more-container">
+  <button id="loadMoreBtn" class="btn btn-outline">Загрузить еще</button>
+</div>
   </main>
   
   <footer>
@@ -98,5 +125,109 @@
     </div>
     <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
   </footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const photos = JSON.parse(localStorage.getItem('photos')) || [];
+    const gallery = document.querySelector('.gallery-container'); // Убедитесь, что у вас есть этот элемент
+    
+    if (!gallery) return;
+    
+    if (photos.length === 0) {
+      gallery.innerHTML = '<p class="empty-message">В каталоге пока нет фотографий</p>';
+      return;
+    }
+    
+    photos.forEach(photo => {
+      const photoElement = document.createElement('div');
+      photoElement.className = 'photo-card';
+      photoElement.innerHTML = `
+        <div class="photo-image" style="background-image: url('placeholder.jpg')"></div>
+        <div class="photo-info">
+          <h3>${photo.title}</h3>
+          <p class="photo-category">${photo.category}</p>
+          <p class="photo-description">${photo.description}</p>
+          <div class="photo-tags">${photo.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+          <p class="photo-date">${new Date(photo.date).toLocaleDateString()}</p>
+          <p class="photo-author">Автор: ${photo.author}</p>
+        </div>
+      `;
+      gallery.appendChild(photoElement);
+    });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const photos = JSON.parse(localStorage.getItem('photos')) || [];
+    const gallery = document.querySelector('.gallery-container');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    let visibleCount = 6;
+    const perLoad = 6;
+
+    function displayPhotos(start, end) {
+      const fragment = document.createDocumentFragment();
+      
+      photos.slice(start, end).forEach(photo => {
+        const photoElement = document.createElement('div');
+        photoElement.className = 'photo-card';
+        photoElement.innerHTML = `
+          <img src="${photo.image}" alt="${photo.title}" class="photo-image">
+          <div class="photo-info">
+            <h3>${photo.title}</h3>
+            <p class="photo-category">${getCategoryName(photo.category)}</p>
+            <p class="photo-description">${photo.description}</p>
+            <div class="photo-tags">
+              ${photo.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <p class="photo-meta">
+              <span class="photo-date">${formatDate(photo.date)}</span>
+              <span class="photo-author">Автор: ${photo.author}</span>
+            </p>
+          </div>
+        `;
+        fragment.appendChild(photoElement);
+      });
+      
+      gallery.appendChild(fragment);
+    }
+
+    function getCategoryName(category) {
+      const categories = {
+        nature: 'Природа',
+        city: 'Город',
+        people: 'Люди',
+        architecture: 'Архитектура'
+      };
+      return categories[category] || category;
+    }
+
+    function formatDate(dateString) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString('ru-RU', options);
+    }
+
+    // Первоначальная загрузка
+    if (photos.length === 0) {
+      gallery.innerHTML = '<p class="empty-message">В каталоге пока нет фотографий</p>';
+      loadMoreBtn.style.display = 'none';
+    } else {
+      displayPhotos(0, Math.min(visibleCount, photos.length));
+      if (photos.length <= visibleCount) {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+
+    // Обработчик кнопки "Загрузить еще"
+    loadMoreBtn.addEventListener('click', function() {
+      const prevCount = visibleCount;
+      visibleCount += perLoad;
+      
+      displayPhotos(prevCount, Math.min(visibleCount, photos.length));
+      
+      if (visibleCount >= photos.length) {
+        loadMoreBtn.style.display = 'none';
+      }
+    });
+  });
+</script>
 </body>
 </html>

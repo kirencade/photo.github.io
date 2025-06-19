@@ -98,6 +98,52 @@
   </style>
 </head>
 <body>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    
+    if (currentUser) {
+      const authButtons = document.querySelector('.auth-buttons');
+      authButtons.innerHTML = `
+        <button id="logoutBtn" class="btn btn-outline">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Выйти</span>
+        </button>
+      `;
+      
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+        window.location.reload();
+      });
+    }
+  });
+</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+      
+      if (currentUser) {
+        const authButtons = document.querySelector('.auth-buttons');
+        authButtons.innerHTML = `
+          <button id="logoutBtn" class="btn btn-outline">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Выйти</span>
+          </button>
+        `;
+        
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+          localStorage.removeItem('currentUser');
+          sessionStorage.removeItem('currentUser');
+          window.location.reload();
+        });
+      }
+    });
+  </script>
+
+  <!-- Остальная часть вашего HTML -->
+  <header></header>
+
   <header>
     <div class="nav-container">
       <a href="index.html" class="logo">

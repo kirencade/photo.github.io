@@ -1,3 +1,14 @@
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    
+    if (!currentUser) {
+      alert('Для добавления фото необходимо войти в систему');
+      window.location.href = 'login.html';
+    }
+  });
+</script>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -89,6 +100,57 @@
   </style>
 </head>
 <body>
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    
+    if (!currentUser) {
+      alert('Для добавления фото необходимо войти в систему');
+      window.location.href = 'login.html';
+    } else {
+      const authButtons = document.querySelector('.auth-buttons');
+      authButtons.innerHTML = `
+        <button id="logoutBtn" class="btn btn-outline">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Выйти</span>
+        </button>
+      `;
+      
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+      });
+    }
+  });
+</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+      
+      if (!currentUser) {
+        alert('Для добавления фото необходимо войти в систему');
+        window.location.href = 'login.html';
+      } else {
+        // Обновляем кнопки авторизации
+        const authButtons = document.querySelector('.auth-buttons');
+        authButtons.innerHTML = `
+          <button id="logoutBtn" class="btn btn-outline">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Выйти</span>
+          </button>
+        `;
+        
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+          localStorage.removeItem('currentUser');
+          sessionStorage.removeItem('currentUser');
+          window.location.href = 'index.html';
+        });
+      }
+    });
+  </script>
+
+  <!-- Остальная часть вашего HTML -->
   <header>
     <div class="nav-container">
       <a href="index.html" class="logo">
@@ -181,60 +243,118 @@
     </div>
     <p class="copyright">© 2025 Фотоархив. Все права защищены.</p>
   </footer>
-
   <script>
-    // Превью загружаемого изображения
-    const uploadPreview = document.getElementById('uploadPreview');
-    const fileInput = document.getElementById('fileInput');
-    const previewImage = document.getElementById('previewImage');
+  // Превью загружаемого изображения
+  const uploadPreview = document.getElementById('uploadPreview');
+  const fileInput = document.getElementById('fileInput');
+  const previewImage = document.getElementById('previewImage');
+  
+  // Drag and drop
+  uploadPreview.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadPreview.style.borderColor = 'var(--primary)';
+    uploadPreview.style.backgroundColor = '#eceff1';
+  });
+
+  uploadPreview.addEventListener('dragleave', () => {
+    uploadPreview.style.borderColor = '#bdbdbd';
+    uploadPreview.style.backgroundColor = '#f5f5f5';
+  });
+
+  uploadPreview.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadPreview.style.borderColor = '#bdbdbd';
+    uploadPreview.style.backgroundColor = '#f5f5f5';
     
-    uploadPreview.addEventListener('click', () => fileInput.click());
-    
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          previewImage.src = event.target.result;
-          previewImage.style.display = 'block';
-          uploadPreview.querySelector('.upload-icon').style.display = 'none';
-          uploadPreview.querySelector('.upload-text').style.display = 'none';
-        };
-        reader.readAsDataURL(file);
+    if (e.dataTransfer.files.length) {
+      fileInput.files = e.dataTransfer.files;
+      const event = new Event('change');
+      fileInput.dispatchEvent(event);
+    }
+  });
+
+  uploadPreview.addEventListener('click', () => fileInput.click());
+  
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        previewImage.src = event.target.result;
+        previewImage.style.display = 'block';
+        uploadPreview.querySelector('.upload-icon').style.display = 'none';
+        uploadPreview.querySelector('.upload-text').style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+  
+  // Обработка тегов
+  document.getElementById('photoTags').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      const tagText = this.value.trim().replace(',', '');
+      if (tagText) {
+        addTag(tagText);
+        this.value = '';
       }
-    });
+    }
+  });
+  
+  function addTag(tagText) {
+    const tagsContainer = document.getElementById('tagsContainer');
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.innerHTML = `
+      ${tagText}
+      <span class="tag-remove" onclick="this.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </span>
+    `;
+    tagsContainer.appendChild(tag);
+  }
+  
+  // Отправка формы
+  document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     
-    // Обработка тегов
-    document.getElementById('photoTags').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ',') {
-        e.preventDefault();
-        const tagText = this.value.trim().replace(',', '');
-        if (tagText) {
-          addTag(tagText);
-          this.value = '';
-        }
-      }
-    });
-    
-    function addTag(tagText) {
-      const tagsContainer = document.getElementById('tagsContainer');
-      const tag = document.createElement('div');
-      tag.className = 'tag';
-      tag.innerHTML = `
-        ${tagText}
-        <span class="tag-remove" onclick="this.parentElement.remove()">
-          <i class="fas fa-times"></i>
-        </span>
-      `;
-      tagsContainer.appendChild(tag);
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser'));
+    if (!currentUser) {
+      alert('Сессия истекла. Пожалуйста, войдите снова.');
+      window.location.href = 'login.html';
+      return;
     }
     
-    // Отправка формы
-    document.getElementById('uploadForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+    const fileInput = document.getElementById('fileInput');
+    if (!fileInput.files[0]) {
+      alert('Пожалуйста, выберите фотографию');
+      return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const photoData = {
+        id: Date.now(),
+        image: event.target.result,
+        title: document.getElementById('photoTitle').value,
+        category: document.getElementById('photoCategory').value,
+        description: document.getElementById('photoDescription').value,
+        tags: Array.from(document.querySelectorAll('.tag')).map(tag => 
+          tag.textContent.trim().replace('×', '')),
+        date: document.getElementById('photoDate').value || new Date().toISOString().split('T')[0],
+        author: currentUser.email,
+        uploadedAt: new Date().toISOString()
+      };
+      
+      const photos = JSON.parse(localStorage.getItem('photos')) || [];
+      photos.push(photoData);
+      localStorage.setItem('photos', JSON.stringify(photos));
+      
       alert('Фотография успешно загружена!');
       window.location.href = 'catalog.html';
-    });
-  </script>
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+  });
+</script>
 </body>
 </html>

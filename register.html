@@ -156,84 +156,130 @@
   </footer>
 
   <script>
-    // Проверка сложности пароля
-    const passwordInput = document.getElementById('regPassword');
-    const strengthBar = document.getElementById('strengthBar');
-    const requirements = {
-      length: document.getElementById('lengthReq'),
-      number: document.getElementById('numberReq'),
-      special: document.getElementById('specialReq')
-    };
+  // Проверка сложности пароля
+  const passwordInput = document.getElementById('regPassword');
+  const strengthBar = document.getElementById('strengthBar');
+  const requirements = {
+    length: document.getElementById('lengthReq'),
+    number: document.getElementById('numberReq'),
+    special: document.getElementById('specialReq')
+  };
+  
+  // Имитация "базы данных" в localStorage
+  if (!localStorage.getItem('users')) {
+    localStorage.setItem('users', JSON.stringify([]));
+  }
+  
+  passwordInput.addEventListener('input', function() {
+    const password = this.value;
+    let strength = 0;
     
-    passwordInput.addEventListener('input', function() {
-      const password = this.value;
-      let strength = 0;
-      
-      // Проверка требований
-      const hasLength = password.length >= 8;
-      const hasNumber = /\d/.test(password);
-      const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-      
-      // Обновление индикаторов
-      updateRequirement(requirements.length, hasLength);
-      updateRequirement(requirements.number, hasNumber);
-      updateRequirement(requirements.special, hasSpecial);
-      
-      // Расчет силы
-      if (hasLength) strength += 1;
-      if (hasNumber) strength += 1;
-      if (hasSpecial) strength += 1;
-      
-      // Обновление индикатора
-      const width = (strength / 3) * 100;
-      let color;
-      
-      if (strength === 0) {
-        color = '#f44336'; // Красный
-      } else if (strength === 1) {
-        color = '#FF9800'; // Оранжевый
-      } else if (strength === 2) {
-        color = '#FFC107'; // Желтый
-      } else {
-        color = '#4CAF50'; // Зеленый
-      }
-      
-      strengthBar.style.width = `${width}%`;
-      strengthBar.style.backgroundColor = color;
-    });
+    // Проверка требований
+    const hasLength = password.length >= 8;
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     
-    function updateRequirement(element, isValid) {
-      const icon = element.querySelector('i');
-      if (isValid) {
-        icon.classList.add('valid');
-        icon.classList.remove('invalid');
-      } else {
-        icon.classList.add('invalid');
-        icon.classList.remove('valid');
-      }
+    // Обновление индикаторов
+    updateRequirement(requirements.length, hasLength);
+    updateRequirement(requirements.number, hasNumber);
+    updateRequirement(requirements.special, hasSpecial);
+    
+    // Расчет силы
+    if (hasLength) strength += 1;
+    if (hasNumber) strength += 1;
+    if (hasSpecial) strength += 1;
+    
+    // Обновление индикатора
+    const width = (strength / 3) * 100;
+    let color;
+    
+    if (strength === 0) {
+      color = '#f44336'; // Красный
+    } else if (strength === 1) {
+      color = '#FF9800'; // Оранжевый
+    } else if (strength === 2) {
+      color = '#FFC107'; // Желтый
+    } else {
+      color = '#4CAF50'; // Зеленый
     }
     
-    // Проверка формы
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const password = document.getElementById('regPassword').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
-      
-      if (password !== confirmPassword) {
-        alert('Пароли не совпадают!');
-        return;
-      }
-      
-      if (!document.getElementById('agreeTerms').checked) {
-        alert('Необходимо принять условия использования');
-        return;
-      }
-      
-      // Здесь будет отправка данных на сервер
-      alert('Регистрация успешна! Добро пожаловать в Фотоархив.');
+    strengthBar.style.width = `${width}%`;
+    strengthBar.style.backgroundColor = color;
+  });
+  
+  function updateRequirement(element, isValid) {
+    const icon = element.querySelector('i');
+    if (isValid) {
+      icon.classList.add('valid');
+      icon.classList.remove('invalid');
+    } else {
+      icon.classList.add('invalid');
+      icon.classList.remove('valid');
+    }
+  }
+  
+  // Проверка формы и "отправка" данных
+  document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    
+    // Валидация формы
+    if (password !== confirmPassword) {
+      alert('Пароли не совпадают!');
+      return;
+    }
+    
+    if (!document.getElementById('agreeTerms').checked) {
+      alert('Необходимо принять условия использования');
+      return;
+    }
+    
+    // Проверка сложности пароля
+    const hasLength = password.length >= 8;
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    
+    if (!hasLength || !hasNumber || !hasSpecial) {
+      alert('Пароль не соответствует требованиям безопасности');
+      return;
+    }
+    
+    // Имитация работы с "базой данных"
+    const users = JSON.parse(localStorage.getItem('users'));
+    
+    // Проверка на существующего пользователя
+    const userExists = users.some(user => user.email === email);
+    if (userExists) {
+      alert('Пользователь с таким email уже зарегистрирован');
+      return;
+    }
+    
+    // "Регистрация" пользователя
+    const newUser = {
+      id: Date.now(),
+      firstName,
+      lastName,
+      email,
+      password: '******', // В реальном проекте здесь должен быть хэш пароля
+      registeredAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    // Сообщение об успехе
+    alert('Регистрация успешна! Добро пожаловать в Фотоархив.');
+    
+    // Перенаправление на главную страницу через 2 секунды
+    setTimeout(() => {
       window.location.href = 'index.html';
-    });
-  </script>
+    }, 2000);
+  });
+</script>
 </body>
 </html>
